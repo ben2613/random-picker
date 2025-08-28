@@ -357,27 +357,19 @@ body {
 .wheel-label.highlight {
     color: #ffeb3b !important;
     font-size: 16px !important;
-    text-shadow: 0 0 15px rgba(255, 235, 59, 1), 0 0 25px rgba(255, 235, 59, 0.8), 2px 2px 4px rgba(0,0,0,0.9) !important;
-    animation: highlightPulse 1s ease-in-out infinite alternate;
-    z-index: 10 !important;
-}
-
-@keyframes highlightPulse {
-    from { transform: scale(1); }
-    to { transform: scale(1.1); }
 }
 
 @keyframes highlightBounce {
     0% { 
-        transform: translateX(-50%) scale(0.8);
+        transform: translate(-50%, -50%) scale(0.8);
         opacity: 0;
     }
     50% { 
-        transform: translateX(-50%) scale(1.1);
+        transform: translate(-50%, -50%) scale(1.1);
         opacity: 1;
     }
     100% { 
-        transform: translateX(-50%) scale(1);
+        transform: translate(-50%, -50%) scale(1);
         opacity: 1;
     }
 }

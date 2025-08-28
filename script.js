@@ -297,15 +297,16 @@ class RandomPicker {
 
     createHighlightOverlay(label, selectedOption) {
         // Remove any existing overlay
-        const existingOverlay = this.wheel.querySelector('.highlight-overlay');
+        const existingOverlay = this.wheel.parentElement.querySelector('.highlight-overlay');
         if (existingOverlay) {
             existingOverlay.remove();
         }
 
-        // Create a new overlay that's not rotated
+        // Create a new overlay at a fixed position above the wheel
         const overlay = document.createElement('div');
         overlay.className = 'highlight-overlay';
         overlay.textContent = selectedOption;
+        
         overlay.style.cssText = `
             position: absolute;
             top: 20px;
@@ -313,16 +314,20 @@ class RandomPicker {
             transform: translateX(-50%);
             background: linear-gradient(135deg, #ff6b6b, #ee5a24);
             color: white;
-            padding: 10px 20px;
+            padding: 12px 24px;
             border-radius: 25px;
             font-weight: bold;
             font-size: 18px;
             z-index: 1000;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-            animation: highlightBounce 0.5s ease-out;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+            animation: highlightBounce 0.6s ease-out;
+            white-space: nowrap;
+            text-align: center;
+            min-width: 80px;
         `;
 
-        this.wheel.appendChild(overlay);
+        // Append to wheel container instead of wheel to avoid rotation transforms
+        this.wheel.parentElement.appendChild(overlay);
     }
 
     clearHighlights() {
@@ -330,8 +335,8 @@ class RandomPicker {
         const existingHighlights = this.wheel.querySelectorAll('.wheel-label.highlight');
         existingHighlights.forEach(label => label.classList.remove('highlight'));
         
-        // Remove highlight overlay
-        const existingOverlay = this.wheel.querySelector('.highlight-overlay');
+        // Remove highlight overlay from wheel container
+        const existingOverlay = this.wheel.parentElement.querySelector('.highlight-overlay');
         if (existingOverlay) {
             existingOverlay.remove();
         }
