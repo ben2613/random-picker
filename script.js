@@ -274,6 +274,8 @@ class RandomPicker {
         
         // Create dramatic effects
         this.createConfetti();
+        this.createFlyingRibbons();
+        this.createHornAnimation();
         this.playWinSound();
         
         setTimeout(() => {
@@ -372,6 +374,94 @@ class RandomPicker {
                 }, 4000);
             }, i * 50);
         }
+    }
+
+    createFlyingRibbons() {
+        const ribbonColors = ['#ff6b6b', '#4ecdc4', '#45b7d1', '#96ceb4', '#feca57', '#ff9ff3', '#5f27cd', '#10ac84'];
+        
+        for (let i = 0; i < 12; i++) {
+            setTimeout(() => {
+                const ribbon = document.createElement('div');
+                ribbon.className = 'flying-ribbon';
+                
+                const color = ribbonColors[Math.floor(Math.random() * ribbonColors.length)];
+                const startX = Math.random() * 100;
+                const startY = Math.random() * 50 + 25;
+                const endX = startX + (Math.random() - 0.5) * 60;
+                const endY = startY + (Math.random() - 0.5) * 60;
+                const rotation = Math.random() * 360;
+                const scale = Math.random() * 0.5 + 0.5;
+                
+                ribbon.style.cssText = `
+                    position: fixed;
+                    left: ${startX}vw;
+                    top: ${startY}vh;
+                    width: 60px;
+                    height: 8px;
+                    background: linear-gradient(45deg, ${color}, ${color}dd);
+                    border-radius: 4px;
+                    z-index: 999;
+                    transform: rotate(${rotation}deg) scale(${scale});
+                    animation: ribbonFly 3s ease-out forwards;
+                `;
+                
+                // Add ribbon tail
+                const tail = document.createElement('div');
+                tail.style.cssText = `
+                    position: absolute;
+                    right: -20px;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    width: 20px;
+                    height: 4px;
+                    background: ${color}aa;
+                    border-radius: 2px;
+                `;
+                ribbon.appendChild(tail);
+                
+                document.body.appendChild(ribbon);
+                
+                // Animate the ribbon
+                setTimeout(() => {
+                    ribbon.style.transform = `translate(${endX - startX}vw, ${endY - startY}vh) rotate(${rotation + 180}deg) scale(${scale * 0.8})`;
+                }, 100);
+                
+                setTimeout(() => {
+                    ribbon.remove();
+                }, 3000);
+            }, i * 200);
+        }
+    }
+
+    createHornAnimation() {
+        // Create horn container
+        const hornContainer = document.createElement('div');
+        hornContainer.className = 'horn-container';
+        hornContainer.style.cssText = `
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1000;
+            pointer-events: none;
+        `;
+        
+        // Create horn emoji with animation
+        const horn = document.createElement('div');
+        horn.innerHTML = '🎺';
+        horn.style.cssText = `
+            font-size: 80px;
+            animation: hornBlast 2s ease-out;
+            filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.8));
+        `;
+        
+        hornContainer.appendChild(horn);
+        document.body.appendChild(hornContainer);
+        
+        // Remove horn after animation
+        setTimeout(() => {
+            hornContainer.remove();
+        }, 2000);
     }
 
     playWinSound() {
