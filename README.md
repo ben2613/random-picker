@@ -1,5 +1,7 @@
 # Random Picker - Roulette Wheel
 
+> ⚠️ **DISCLAIMER**: This entire project was created with the assistance of an AI agent. All descriptions, features, and technical details mentioned in this README may contain illusions or inaccuracies.
+
 A beautiful and interactive web application that helps you make random decisions using a colorful roulette wheel with dramatic visual effects.
 
 ## Features
